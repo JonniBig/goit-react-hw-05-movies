@@ -1,0 +1,22 @@
+.Header {
+  height: 70px;
+  background-color: rgba(255, 255, 255, 0.779);
+  box-shadow: 5px 5px 5px lightgrey;
+}
+.NavElement{
+    display: inline-block;
+    padding: 10px;
+    margin: 10px;
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+  
+    &:hover {
+      border: 1px solid lightgray;
+      border-radius: 5px;
+    }
+}
+  .NavElement.active {
+    color: orange;
+  }
