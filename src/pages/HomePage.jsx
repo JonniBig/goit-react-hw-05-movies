@@ -1,6 +1,5 @@
 import MovieList from 'components/MovieList/MovieList';
 import React, { useEffect, useState } from 'react';
-import css from './HomePage.module.css';
 import { getTrendingMovies } from 'services/getTrendingMovies';
 
 const HomePage = () => {
@@ -39,7 +38,7 @@ const HomePage = () => {
           <p>Loading...</p>
         </div>
       )}
-      <section className={css.HomePageContainer}>
+      <section>
         <h1>Trending today</h1>
         <MovieList trendingMovies={trendingMovies} />
       </section>

@@ -9,6 +9,7 @@ import {
 } from 'react-router-dom';
 import { getMovie } from 'services/getTrendingMovies';
 import MovieDetailsItem from 'components/MovieDetailsItem/MovieDetailsItem';
+import CSS from './MovieDetails.module.css';
 
 const Cast = lazy(() => import('components/Cast/Cast'));
 const Reviews = lazy(() => import('components/Reviews/Reviews'));
@@ -50,7 +51,9 @@ const MovieDetails = () => {
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <Link to={backLinkRef.current}>Go back</Link>
+      <Link to={backLinkRef.current} className={CSS.goBackLink}>
+        Go back
+      </Link>
       {pageData.hasError && (
         <div>
           <p>{pageData.errorMessage}</p>
@@ -61,7 +64,7 @@ const MovieDetails = () => {
           <p>Loading...</p>
         </div>
       )}
-      <div>
+      <div className={CSS.DeteilsContainer}>
         {pageData.movieData.poster_path && (
           <MovieDetailsItem
             id={pageData.movieData.id}

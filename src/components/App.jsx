@@ -8,7 +8,7 @@ const MovieDetails = lazy(() => import('./MovieDetails/MovieDetails'));
 
 const App = () => {
   return (
-    <div className={CSS.Container}>
+    <div>
       <Suspense fallback={<div>Loading...</div>}>
         <Header />
         <Routes>

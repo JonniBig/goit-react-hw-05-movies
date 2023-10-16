@@ -6,34 +6,34 @@ import { getCast } from 'services/getTrendingMovies';
 const Cast = () => {
   const { id } = useParams();
 
-  const [cast, setCast] = useState(null);
+  const [castData, setCastData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [hasError, setHasError] = useState(false);
   const [errorMessage, setErrorMessage] = useState(
     'Something went wrong! Try again later'
   );
 
   useEffect(() => {
     if (!id) return;
-    async function fetchCast() {
+    async function fetchCastData() {
       try {
         setIsLoading(true);
-        const mCast = await getCast(id);
+        const cast = await getCast(id);
 
-        setCast(mCast);
+        setCastData(cast);
       } catch (error) {
-        setError(true);
+        setHasError(true);
         setErrorMessage(error.message);
       } finally {
         setIsLoading(false);
       }
     }
-    fetchCast();
+    fetchCastData();
   }, [id]);
 
   return (
     <div>
-      {error && (
+      {hasError && (
         <div>
           <p>{errorMessage}</p>
         </div>
@@ -43,14 +43,14 @@ const Cast = () => {
           <p>Loading...</p>
         </div>
       )}
-      {cast === null && (
+      {castData === null && (
         <div>
           <p>No cast available</p>
         </div>
       )}
-      {cast && cast.length > 0 && (
+      {castData && castData.length > 0 && (
         <ul>
-          {cast.map(actor => {
+          {castData.map(actor => {
             return (
               <CastItem
                 key={actor.id}
