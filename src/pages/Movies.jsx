@@ -1,7 +1,7 @@
-import MovieItem from 'components/MovieItem/MovieItem';
+import MovieItem from '../components/MovieItem/MovieItem';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
-import { getMovieSearch } from 'services/getTrendingMovies';
+import { getMovieSearch } from '../services/getTrendingMovies';
 
 const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();

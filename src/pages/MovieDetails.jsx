@@ -1,8 +1,18 @@
-import React, { useEffect, useRef, useState, Suspense } from 'react';
-import { Link, NavLink, useLocation, useParams } from 'react-router-dom';
+import React, { useEffect, useRef, useState, lazy, Suspense } from 'react';
+import {
+  Link,
+  NavLink,
+  Route,
+  Routes,
+  useLocation,
+  useParams,
+} from 'react-router-dom';
 import { getMovie } from 'services/getTrendingMovies';
 import MovieDetailsItem from 'components/MovieDetailsItem/MovieDetailsItem';
 import CSS from './MovieDetails.module.css';
+
+const Cast = lazy(() => import('components/Cast/Cast'));
+const Reviews = lazy(() => import('components/Reviews/Reviews'));
 
 const MovieDetails = () => {
   const { id } = useParams();
@@ -23,9 +33,8 @@ const MovieDetails = () => {
     async function fetchMovieData() {
       try {
         setIsLoading(true);
-        const moviaDetails = await getMovie(id);
-
-        setMovieData(moviaDetails);
+        const mDetails = await getMovie(id);
+        setMovieData(mDetails);
       } catch (error) {
         setHasError(true);
         setErrorMessage(error.message);
@@ -72,6 +81,10 @@ const MovieDetails = () => {
             </li>
           </ul>
         </div>
+        <Routes>
+          <Route path="cast" element={<Cast />} />
+          <Route path="reviews" element={<Reviews />} />
+        </Routes>
       </div>
     </Suspense>
   );
