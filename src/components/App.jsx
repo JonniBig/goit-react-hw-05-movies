@@ -1,10 +1,12 @@
 import React, { lazy, Suspense } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 
+import Header from './Header/Header';
 const HomePage = lazy(() => import('../pages/HomePage'));
 const Movies = lazy(() => import('../pages/Movies'));
-const Header = lazy(() => import('./Header/Header'));
-const MovieDetails = lazy(() => import('./MovieDetails/MovieDetails'));
+const MovieDetails = lazy(() => import('../pages/MovieDetails'));
+const Cast = lazy(() => import('./Cast/Cast'));
+const Reviews = lazy(() => import('./Reviews/Reviews'));
 
 const App = () => {
   return (
@@ -14,7 +16,11 @@ const App = () => {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/movies" element={<Movies />} />
-          <Route path="/movies/:id/*" element={<MovieDetails />} />
+          <Route path="/movies/:id/*" element={<MovieDetails />}>
+            <Route path="cast" element={<Cast />} />
+            <Route path="reviews" element={<Reviews />} />
+          </Route>
+          <Route path="*" element={<Navigate to="/" replace />} />{' '}
         </Routes>
       </Suspense>
     </div>

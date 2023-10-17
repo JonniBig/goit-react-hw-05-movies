@@ -1,4 +1,4 @@
-import CastItem from 'components/CastItem/CastItem';
+import CastItem from '../CastItem/CastItem';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getCast } from 'services/getTrendingMovies';

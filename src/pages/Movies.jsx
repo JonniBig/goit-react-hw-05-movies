@@ -2,7 +2,6 @@ import MovieItem from 'components/MovieItem/MovieItem';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { getMovieSearch } from 'services/getTrendingMovies';
-import css from './Movie.module.css';
 
 const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -64,7 +63,7 @@ const Movies = () => {
             <p>Loading...</p>
           </div>
         )}
-        <ul className={css.MovieList}>
+        <ul>
           {MovieSearch !== 0 &&
             MovieSearch.map(movie => {
               return (
@@ -73,7 +72,6 @@ const Movies = () => {
                   title={movie.title}
                   id={movie.id}
                   location={location}
-                  poster_path={movie.poster_path}
                 />
               );
             })}

@@ -1,32 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getReview } from 'services/getTrendingMovies';
-import ReviewItem from 'components/ReviewItem/ReviewItem';
+import ReviewItem from '../ReviewItem/ReviewItem';
 
 const Reviews = () => {
   const { id } = useParams();
-  const [reviewState, setReviewState] = useState({
-    reviews: [],
-    isLoading: false,
-    hasError: false,
-    errorMessage: 'Something went wrong! Try again later',
-  });
+
+  const [reviews, setReviews] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasError, setHasError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(
+    'Something went wrong! Try again later'
+  );
 
   useEffect(() => {
     if (!id) return;
     async function fetchReviews() {
       try {
-        setReviewState(prev => ({ ...prev, isLoading: true }));
+        setIsLoading(true);
         const reviews = await getReview(id);
-        setReviewState(prev => ({ ...prev, reviews }));
+        setReviews(reviews);
       } catch (error) {
-        setReviewState(prev => ({
-          ...prev,
-          hasError: true,
-          errorMessage: error.message,
-        }));
+        setHasError(true);
+        setErrorMessage(error.message);
       } finally {
-        setReviewState(prev => ({ ...prev, isLoading: false }));
+        setIsLoading(false);
       }
     }
     fetchReviews();
@@ -34,21 +32,21 @@ const Reviews = () => {
 
   return (
     <>
-      {reviewState.hasError && (
+      {hasError && (
         <div>
-          <p>{reviewState.errorMessage}</p>
+          <p>{errorMessage}</p>
         </div>
       )}
-      {reviewState.isLoading && (
+      {isLoading && (
         <div>
           <p>Loading...</p>
         </div>
       )}
-      {reviewState.reviews.length === 0 ? (
+      {reviews.length === 0 ? (
         <p>No reviews for this movie found</p>
       ) : (
         <ul>
-          {reviewState.reviews.map(author => (
+          {reviews.map(author => (
             <ReviewItem
               key={author.id}
               author={author.author}
